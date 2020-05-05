@@ -1,11 +1,12 @@
 api_info.json
-dynatrace_soup.html
+*.html
 log.log
 .env
 token.md
 .vscode/
 .benchmarks/
 tempCodeRunnerFile.py
+html/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
