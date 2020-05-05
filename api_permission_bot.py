@@ -6,7 +6,7 @@ import json
 import pandas
 
 
-# TODO: to remove the URL column and make API column linkable I'd have to build the indivdiual tables by hand. 
+# TODO: to remove the URL column and make API column linkable I'd have to build the indivdiual tables by hand.
 # TODO: or maybe use soup to edit every place a <tr><td><ADD LINK HERE>name</a> occurs
 USE_LOCAL_OBJECTS = True
 
@@ -49,9 +49,9 @@ def main():
     # Build the df
     all_the_info = data_manipulation(api_authentication_info)
 
-    log.debug(f"Name: {all_the_info[0][0]}")
-    log.debug(f"List: {all_the_info[0][1]}")
-    log.debug(f"HTML: {all_the_info[0][2]}")
+    # log.debug(f"Name: {all_the_info[0][0]}")
+    # log.debug(f"List: {all_the_info[0][1]}")
+    # log.debug(f"HTML: {all_the_info[0][2]}")
 
     build_the_html(all_the_info)
 
