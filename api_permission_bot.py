@@ -34,6 +34,11 @@ def main():
 
     api_authentication_info = api_doc_crawler(menu_items_dict)
 
+    # TODO: build pandas
+    # TODO: group by
+    # TODO: build individual html files
+    # TODO: combine into one static file
+
 
 def get_api_start_doc():
     """ Initial support page to parse """
@@ -81,7 +86,11 @@ def api_doc_crawler(menu_items_dict):
     """ Crawl the menu_items_dict """
 
     api_authentication_info = []
+
+    # full crawl takes a long time to run set a limit
+    # very hacky fix this up
     limiter = 11
+
     for name, page in menu_items_dict.items():
         log.debug(f"Crawling: {name}")
 
