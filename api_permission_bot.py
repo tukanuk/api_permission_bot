@@ -94,12 +94,13 @@ def build_the_html(all_the_info):
   <div class="tab-pane fade show active" id="nav-permission" role="tabpanel" aria-labelledby="nav-permission-tab">
 """
     # add anchor links
+    body += 'Jump to:'
     body += '<div class="container"><div class="row"><div class="col-sm"><ul>'
     column_one = True
     for i, item in enumerate(all_the_info):
         body += '<li><a href=\"#' + \
             item[0] + "\">" + item[0] + '</a></li>'
-        if i / len(all_the_info) >= 0.5 and column_one:
+        if i-1 / len(all_the_info) >= 0.5hkpgk and column_one:
 
             body += '</ul></div><div class="col-sm"><ul>'
             column_one = False
