@@ -8,6 +8,9 @@ import pandas
 
 # TODO: to remove the URL column and make API column linkable I'd have to build the indivdiual tables by hand.
 # TODO: or maybe use soup to edit every place a <tr><td><ADD LINK HERE>name</a> occurs
+# TODO: or use the formmater in to_html to edit on export
+# TODO: add group by api
+
 USE_LOCAL_OBJECTS = True
 
 log = simplelogging.get_logger(
@@ -59,6 +62,8 @@ def main():
 def build_the_html(all_the_info):
     # Build the final output HTML document
 
+    log.debug(f"Length of all_the_info: {len(all_the_info)}")
+
     head = """<!DOCTYPE html>
 <html lang="en">
     <head>
@@ -73,18 +78,53 @@ def build_the_html(all_the_info):
   </head>"""
     body = "<body><div class=\"container\"><h1>API Permissions</h1>"
 
-    # add anchor links
-    body += "<ul>"
-    for item in all_the_info:
-        body += "<li><a href=\"#" + item[0] + "\">" + item[0] + "</a></li>"
-    body += "</ul>"
+    # add the tabs
+    body += """
+    <nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-permission-tab" data-toggle="tab" href="#nav-permission" role="tab" aria-controls="nav-permission" aria-selected="true">Group by Permission</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-api" role="tab" aria-controls="nav-api" aria-selected="false">Group by API</a>
+  </div>
+</nav>
+"""
 
-    # add the tables
+    # add the permission tab
+    body += """
+    <div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-permission" role="tabpanel" aria-labelledby="nav-permission-tab">
+"""
+    # add anchor links
+    body += '<div class="container"><div class="row"><div class="col-sm"><ul>'
+    column_one = True
+    for i, item in enumerate(all_the_info):
+        body += '<li><a href=\"#' + \
+            item[0] + "\">" + item[0] + '</a></li>'
+        if i / len(all_the_info) >= 0.5 and column_one:
+
+            body += '</ul></div><div class="col-sm"><ul>'
+            column_one = False
+    body += "</ul></div></div></div>"
+
+    # add the permission tables
     for item in all_the_info:
         body += "<h2><a id=\"" + item[0] + "\"></a>" + item[0] + "</h2>"
         body += item[2]
 
-    body += "</div></body>"
+    body += """</div>"""
+
+    # add the API tab
+    body += """<div class = "tab-pane fade" id = "nav-api" role = "tabpanel" aria-labelledby = "nav-api-tab" > Group by API coming soon </div>
+
+
+</div>
+"""
+
+    body += """ </div> <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src = "https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity = "sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin = "anonymous" > </script>
+    <script src = "https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity = "sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin = "anonymous" > </script>
+    <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity = "sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin = "anonymous" > </script> </body>
+    """
     footer = "</html>"
 
     with open('api_permission.html', 'w') as fp:
