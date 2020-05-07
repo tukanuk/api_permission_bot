@@ -11,7 +11,7 @@ import pandas
 # TODO: or use the formmater in to_html to edit on export
 # TODO: add group by api
 
-USE_LOCAL_OBJECTS = False
+USE_LOCAL_OBJECTS = True
 
 log = simplelogging.get_logger(
     logger_level=simplelogging.DEBUG, console=True, console_level=simplelogging.DEBUG, file_name="log.log")
@@ -83,7 +83,7 @@ def build_the_html(all_the_info):
     <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-permission-tab" data-toggle="tab" href="#nav-permission" role="tab" aria-controls="nav-permission" aria-selected="true">Group by Permission</a>
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-api" role="tab" aria-controls="nav-api" aria-selected="false">Group by API</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-api" role="tab" aria-controls="nav-api" aria-selected="false">Group by Section</a>
   </div>
 </nav>
 """
@@ -100,8 +100,9 @@ def build_the_html(all_the_info):
     for i, item in enumerate(all_the_info):
         body += '<li><a href=\"#' + \
             item[0] + "\">" + item[0] + '</a></li>'
-        if i-1 / len(all_the_info) >= 0.5 and column_one:
-
+        if i / len(all_the_info) >= 0.5 and column_one:
+            log.debug(f"New column on enum {i-1}")
+            log.debug(f"Len: {len(all_the_info)}")
             body += '</ul></div><div class="col-sm"><ul>'
             column_one = False
     body += "</ul></div></div></div>"
