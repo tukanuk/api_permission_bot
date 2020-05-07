@@ -11,7 +11,7 @@ import pandas
 # TODO: or use the formmater in to_html to edit on export
 # TODO: add group by api
 
-USE_LOCAL_OBJECTS = True
+USE_LOCAL_OBJECTS = False
 
 log = simplelogging.get_logger(
     logger_level=simplelogging.DEBUG, console=True, console_level=simplelogging.DEBUG, file_name="log.log")
@@ -100,7 +100,7 @@ def build_the_html(all_the_info):
     for i, item in enumerate(all_the_info):
         body += '<li><a href=\"#' + \
             item[0] + "\">" + item[0] + '</a></li>'
-        if i-1 / len(all_the_info) >= 0.5hkpgk and column_one:
+        if i-1 / len(all_the_info) >= 0.5 and column_one:
 
             body += '</ul></div><div class="col-sm"><ul>'
             column_one = False
