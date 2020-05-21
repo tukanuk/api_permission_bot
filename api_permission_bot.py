@@ -11,7 +11,7 @@ import pandas
 # TODO: or use the formmater in to_html to edit on export
 # TODO: add group by api
 
-USE_LOCAL_OBJECTS = True
+USE_LOCAL_OBJECTS = False
 
 log = simplelogging.get_logger(
     logger_level=simplelogging.DEBUG, console=True, console_level=simplelogging.DEBUG, file_name="log.log")
