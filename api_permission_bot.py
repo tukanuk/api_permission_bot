@@ -50,6 +50,7 @@ def main():
         api_authentication_info = api_doc_crawler(menu_items_dict)
 
     # Build the df
+    all_the_info = data_manipulation_param(api_authentication_info, "Section")
     all_the_info = data_manipulation(api_authentication_info)
 
     # log.debug(f"Name: {all_the_info[0][0]}")
@@ -157,6 +158,32 @@ def data_manipulation(api_authentication_info):
 
         sections.append(
             [name, group[['API', 'Section', 'URL']], group.sort_values(by=['Section'])[['API', 'Section', 'URL']].to_html(
+                index=False, border=0, render_links=True, classes='table table-hover table-sm')])
+
+    return sections
+
+
+def data_manipulation_param(api_authentication_info, group_by="Permission"):
+    # Group by group_by
+    # Returns a list of API calls grouped by parameter
+    df = pandas.DataFrame(api_authentication_info, columns=[
+                          'API', 'Permission', 'Section', 'URL'])
+    df_groups = df.groupby(group_by)
+    groupNames = df_groups.groups
+    sections = []
+    for name in groupNames:
+        # Add to list
+        log.debug(f"Adding {name}")
+        group = df_groups.get_group(name)
+        log.debug(f"Type of group: {type(group)}")
+
+        # save to html
+        with open("html/" + group_by + "/" + name + ".html", 'w') as fp:
+            group.sort_values(by=['API']).drop(group_by, axis=1).to_html(
+                fp, index=False, border=None, render_links=True, classes='table table-hover')
+
+        sections.append(
+            [name, group[['API', 'Section', 'URL']], group.sort_values(by=['API'])[['API', 'Permission', 'URL']].to_html(
                 index=False, border=0, render_links=True, classes='table table-hover table-sm')])
 
     return sections
