@@ -33,8 +33,9 @@ def main():
 
     # test the menu_items_dict
     try:
-        assert "https://dynatrace.com/support/help/extend-dynatrace/dynatrace-api/configuration-api/service-api/request-naming-api/get-all/" == menu_items_dict[
-            'GET all rules']
+        # log.debug(menu_items_dict)
+        assert "https://dynatrace.com/support/help/dynatrace-api/configuration-api/plugins-api/" == menu_items_dict[
+            'Plugins']
     except AssertionError as assErr:
         log.exception(
             "URL has changed. Maybe not a problem in production. A problem in dev.")
@@ -214,7 +215,9 @@ def get_menu_items(soup):
     """ Returns a dictorary of page names and links parsed from the menu
     """
     api_menu = soup.select(
-        'body > div.layout.is-flex > nav > ul > li:nth-child(5) > ul > li:nth-child(1)')
+        'body > div.layout.is-flex > nav > ul > li:nth-child(7)')
+    # api_menu = soup.select(
+    #     'body > div.layout.is-flex > nav > ul > li:nth-child(7) > ul > li:nth-child(1)')
 
     log.debug(f"Len: {len(api_menu)}")
 
@@ -223,10 +226,25 @@ def get_menu_items(soup):
     log.debug(type(menu_links))
     # log.debug(str(menu_links))
 
+    # problem is that there are repeat names and the dict overwrites them
+
     menu_items_dict = {}
+    dup_counter = 0
     for link in menu_links:
-        menu_items_dict[link.string.strip(
-        )] = "https://dynatrace.com" + link['href']
+        clean_link = link.string.strip()
+        if clean_link in menu_items_dict:
+            dup_counter += 1
+            menu_items_dict[clean_link +
+                            f" ({dup_counter})"] = "https://dynatrace.com" + link['href']
+        else:
+            menu_items_dict[clean_link] = "https://dynatrace.com" + \
+                link['href']
+
+    log.info(f"menu_items_dict is {len(menu_items_dict)} enteries long")
+    link_list = ""
+    for key, value in menu_items_dict.items():
+        link_list += (f"{key:50}: {value}\n")
+    log.debug(link_list)
 
     return menu_items_dict
 
@@ -238,7 +256,7 @@ def api_doc_crawler(menu_items_dict):
 
     # full crawl takes a long time to run set a limit
     # very hacky fix this up
-    limiter = 11
+    limiter = 10
 
     for name, page in menu_items_dict.items():
         log.debug(f"Crawling: {name}")
