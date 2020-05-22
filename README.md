@@ -1,10 +1,10 @@
 # API Permission webscraper
 
-![Screenshot](screenshot.png)
+![Screenshot](/screenshot.png)
 
 ## Objective
 
-To answer the question, "What can I do with the <insert API permission> Permission?"
+To answer the question, "What can I do with the _insert API permission_ Permission?"
 
 [Token Permissions](https://www.dynatrace.com/support/help/shortlink/api-authentication#token-permissions) provdies an overview of this information but it does not provide a specific list.
 
@@ -23,4 +23,3 @@ The API Permission webscraper does the following:
 3. Groups these pages by permission.
 4. Produce a static HTML file.
 5. A shell script is run once a day to run the script and keep the information up-to-date
- 
