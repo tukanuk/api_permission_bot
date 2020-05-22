@@ -4,6 +4,7 @@ from requests.exceptions import HTTPError
 import simplelogging
 import json
 import pandas
+from datetime import datetime
 
 
 # TODO: to remove the URL column and make API column linkable I'd have to build the indivdiual tables by hand.
@@ -64,9 +65,10 @@ def main():
 def build_the_html(all_the_info):
     # Build the final output HTML document
 
+    cTime = datetime.now().strftime('%m-%d-%Y %H:%M:%S')
     log.debug(f"Length of all_the_info: {len(all_the_info)}")
 
-    head = """<!DOCTYPE html>
+    head = f"""<!DOCTYPE html>
 <html lang="en">
     <head>
     <!-- Required meta tags -->
@@ -77,6 +79,9 @@ def build_the_html(all_the_info):
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <title>API Permissions</title>
+    <div class="alert alert-secondary" role="alert">
+         Last updated: {cTime}
+    </div>
   </head>"""
     body = "<body><div class=\"container\"><h1>API Permissions</h1>"
 
