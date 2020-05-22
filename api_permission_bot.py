@@ -12,7 +12,7 @@ from datetime import datetime
 # TODO: or use the formmater in to_html to edit on export
 # TODO: add group by api
 
-USE_LOCAL_OBJECTS = False
+USE_LOCAL_OBJECTS = True
 
 log = simplelogging.get_logger(
     logger_level=simplelogging.DEBUG, console=True, console_level=simplelogging.DEBUG, file_name="log.log")
@@ -65,7 +65,7 @@ def main():
 def build_the_html(all_the_info):
     # Build the final output HTML document
 
-    cTime = datetime.now().strftime('%m-%d-%Y %H:%M:%S')
+    cTime = datetime.utcnow().strftime('%m-%d-%Y %H:%M:%S UTC')
     log.debug(f"Length of all_the_info: {len(all_the_info)}")
 
     head = f"""<!DOCTYPE html>
