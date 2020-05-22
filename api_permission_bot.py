@@ -51,7 +51,8 @@ def main():
         api_authentication_info = api_doc_crawler(menu_items_dict)
 
     # Build the df
-    all_the_info = data_manipulation_param(api_authentication_info, "Section")
+    all_the_info = data_manipulation(api_authentication_info)
+    # all_the_info = data_manipulation_param(api_authentication_info, "Section")
     all_the_info = data_manipulation(api_authentication_info)
 
     # log.debug(f"Name: {all_the_info[0][0]}")
