@@ -51,7 +51,6 @@ def main():
         api_authentication_info = api_doc_crawler(menu_items_dict)
 
     # Build the df
-    all_the_info = data_manipulation(api_authentication_info)
     # all_the_info = data_manipulation_param(api_authentication_info, "Section")
     all_the_info = data_manipulation(api_authentication_info)
 
@@ -257,7 +256,7 @@ def api_doc_crawler(menu_items_dict):
 
     # full crawl takes a long time to run set a limit
     # very hacky fix this up
-    limiter = 10
+    limiter = 11
 
     for name, page in menu_items_dict.items():
         log.debug(f"Crawling: {name}")
