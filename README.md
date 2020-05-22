@@ -6,9 +6,9 @@
 
 To answer the question, "What can I do with the _insert API permission_ Permission?"
 
-[Token Permissions](https://www.dynatrace.com/support/help/shortlink/api-authentication#token-permissions) provdies an overview of this information but it does not provide a specific list.
+[Token Permissions](https://www.dynatrace.com/support/help/shortlink/api-authentication#token-permissions) provides an overview of this information but it does not provide a specific list.
 
-I've had a few customers ask, "if I grant API permission X what exactly will the token grant access to?" Currently, answering this question would involve clicking through the API documentation to each request page and dropping down the "Authentication" dropdown to check the required permission.
+I've had a few customers ask, "if I grant API permission X what APIs exactly will the token give access to?" Currently, answering this question would involve clicking through the API documentation to each request page and dropping down the "Authentication" dropdown to check the required permission.
 
 Some permissions like "User Sessions" only cover a few requests and are fairly obvious while others such as, "Access problem and event feed, metrics, and topology" cover dozens of requests from many different APIs.
 
