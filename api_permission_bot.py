@@ -20,6 +20,8 @@ log = simplelogging.get_logger(
 
 def main():
 
+    startTime = datetime.utcnow()
+
     # Get the inital page (used for scraping the menu)
     if USE_LOCAL_OBJECTS:
         with open('dynatrace_soup.html', 'r') as fp:
@@ -60,6 +62,11 @@ def main():
     # log.debug(f"HTML: {all_the_info[0][2]}")
 
     build_the_html(all_the_info)
+
+    endTime = datetime.utcnow()
+
+    log.info(
+        f"You made it to the end. Ran from {startTime.strftime('%m-%d-%Y %H:%M:%S UTC')} to {endTime.strftime('%m-%d-%Y %H:%M:%S UTC')} for a total of {endTime-startTime}")
 
 
 def build_the_html(all_the_info):
