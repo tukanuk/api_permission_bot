@@ -18,8 +18,8 @@ To achieve this objective, this script crawls the Dynatrace API documentation lo
 
 The API Permission webscraper does the following:
 
-1. Gets the most recent listing of API documentation from the Dyantrace website
-2. Checks each page of API documentation for _Authenticaton_ information. If present the page title, API section, permission and URL are saved
+1. Gets the most recent listing of API documentation from the Dynatrace website
+2. Checks each page of API documentation for _Authentication_ information. If present the page title, API section, permission and URL are saved
 3. Groups these pages by permission.
 4. Produce a static HTML file.
 5. A shell script is run once a day to run the script and keep the information up-to-date
