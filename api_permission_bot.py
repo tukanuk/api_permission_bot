@@ -144,6 +144,7 @@ def build_the_html(all_the_info):
     """
     footer = "</html>"
 
+    # saves the final html output as a ref version and overwrites the base html
     cTime = datetime.utcnow().strftime('%m%d_%Y_%H%M%SUTC')
     filename = (f'ref/api_permission_{cTime}.html')
     with open(filename, 'w') as fp:
@@ -271,8 +272,8 @@ def api_doc_crawler(menu_items_dict):
     api_authentication_info = []
 
     # full crawl takes a long time to run set a limit
-    # very hacky fix this up
-    limiter = 1
+    # TODO: fix hacky limiter for testing
+    limiter = 11
 
     for name, page in menu_items_dict.items():
         log.debug(f"Crawling: {name}")
@@ -305,7 +306,7 @@ def api_doc_crawler(menu_items_dict):
             log.info(f"{parsed_title[1]} added to the list")
         else:
             log.debug(f"SKIPPED: {parsed_title[0]} ({page})")
-        if limiter == 40:
+        if limiter == 10:
             log.debug(f"Stopping at {limiter} for testing purposes")
             break
         else:
