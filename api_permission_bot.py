@@ -5,6 +5,7 @@ import simplelogging
 import json
 import pandas
 from datetime import datetime
+from shutil import copy
 
 
 # TODO: to remove the URL column and make API column linkable I'd have to build the indivdiual tables by hand.
@@ -143,11 +144,14 @@ def build_the_html(all_the_info):
     """
     footer = "</html>"
 
-    with open('api_permission.html', 'w') as fp:
-
+    cTime = datetime.utcnow().strftime('%m%d_%Y_%H%M%SUTC')
+    filename = (f'ref/api_permission_{cTime}.html')
+    with open(filename, 'w') as fp:
         fp.write(head)
         fp.write(body)
         fp.write(footer)
+
+    copy(filename, 'api_permission.html')
 
 
 def data_manipulation(api_authentication_info):
@@ -268,7 +272,7 @@ def api_doc_crawler(menu_items_dict):
 
     # full crawl takes a long time to run set a limit
     # very hacky fix this up
-    limiter = 11
+    limiter = 1
 
     for name, page in menu_items_dict.items():
         log.debug(f"Crawling: {name}")
@@ -301,7 +305,7 @@ def api_doc_crawler(menu_items_dict):
             log.info(f"{parsed_title[1]} added to the list")
         else:
             log.debug(f"SKIPPED: {parsed_title[0]} ({page})")
-        if limiter == 10:
+        if limiter == 40:
             log.debug(f"Stopping at {limiter} for testing purposes")
             break
         else:
