@@ -162,7 +162,7 @@ def data_manipulation(api_authentication_info):
         # Add to list
         log.debug(f"Adding {name}")
         group = df_groups.get_group(name)
-        log.debug(f"Type of group: {type(group)}")
+        # log.debug(f"Type of group: {type(group)}")
 
         # save to html
         with open("html/" + name + ".html", 'w') as fp:
@@ -224,7 +224,7 @@ def get_api_start_doc():
 
 
 def get_menu_items(soup):
-    """ Returns a dictorary of page names and links parsed from the menu
+    """ Returns a dictionary of page names and links parsed from the menu
     """
     api_menu = soup.select(
         'body > div.layout.is-flex > nav > ul > li:nth-child(7)')
@@ -283,8 +283,17 @@ def api_doc_crawler(menu_items_dict):
         parsed_title = soup.h1.text.split(" - ")
         try:
             permission = soup.section.article.p.strong.text
+            log.warning(f"Found {permission} via dropdown")
         except:
-            permission = ""
+            try:
+                auth_header = soup.find("h4", text="Authentication")
+                # log.debug(auth_header)
+                # log.debug("Looking for the h4")
+                # log.debug(auth_header.next_sibling.next_sibling)
+                permission = auth_header.next_sibling.next_sibling.strong.text
+                log.debug(f"Found {permission} via new method")
+            except:
+                permission = ""
 
         if len(parsed_title) > 1 and permission is not "":
             api_authentication_info.append(

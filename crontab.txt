@@ -1,0 +1,1 @@
+0 1 * * * cd ~/api_permission_bot && /home/ec2-user/api_permission_bot/api_permission_bot.sh >> ~/api_permission_bot/cronoutput.log

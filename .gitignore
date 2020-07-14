@@ -10,6 +10,7 @@ html/
 old_API/
 dynatrace_soup.html
 cronoutput.log
+deployment.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
