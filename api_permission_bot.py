@@ -12,6 +12,7 @@ from shutil import copy
 # TODO: or maybe use soup to edit every place a <tr><td><ADD LINK HERE>name</a> occurs
 # TODO: or use the formmater in to_html to edit on export
 # TODO: add group by api
+# TODO: Integrate `API Value` and `Description` from https://www.dynatrace.com/support/help/shortlink/api-authentication#token-permissions
 
 USE_LOCAL_OBJECTS = False
 
@@ -145,6 +146,7 @@ def build_the_html(all_the_info):
     footer = "</html>"
 
     # saves the final html output as a ref version and overwrites the base html
+    # TODO: check for ref directory first
     cTime = datetime.utcnow().strftime('%m%d_%Y_%H%M%SUTC')
     filename = (f'ref/api_permission_{cTime}.html')
     with open(filename, 'w') as fp:
@@ -196,6 +198,7 @@ def data_manipulation_param(api_authentication_info, group_by="Permission"):
         log.debug(f"Type of group: {type(group)}")
 
         # save to html
+        # TODO: check for html directory first
         with open("html/" + group_by + "/" + name + ".html", 'w') as fp:
             group.sort_values(by=['API']).drop(group_by, axis=1).to_html(
                 fp, index=False, border=None, render_links=True, classes='table table-hover')
